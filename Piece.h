@@ -1,6 +1,6 @@
 #ifndef CHESSPIECE_H
 #define CHESSPIECE_H
-#include "Locker.h"
+#include "Cell.h"
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 struct Move_piece{

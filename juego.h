@@ -68,8 +68,6 @@ private:
     QList <QGraphicsItem *> listG;
     QGraphicsTextItem * frameTurn;
     QGraphicsRectItem * Turn;
-
-
 };
 
 #endif // CORE_H

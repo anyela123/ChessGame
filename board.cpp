@@ -1,5 +1,5 @@
 #include "board.h"
-#include "Locker.h"
+#include "Cell.h"
 #include "juego.h"
 #include "queen.h"
 #include "tower.h"
@@ -37,7 +37,7 @@ void Board::initializeBoard(int x,int y)
             cell->colLoc = j;
             cell->setPos(x+sizeCell*j,y+sizeCell*i);
             if(i==0 || i==9 || j==0 || j==9){
-                cell->setOriginalColor(QColor(47, 79, 79));
+                cell->setOriginalColor(QColor(255, 255, 255));
                 if(i==0 && j==0|| i==9 && j==9 || i==9 && j==0 || i==0 && j==9)
                     cell->setText("");
                 else if(i==0 || i==9 ){
@@ -68,7 +68,8 @@ void Board::initializeBoard(int x,int y)
             if((i+j)%2==0)
                 cell->setOriginalColor(QColor(158, 110, 39)); //marron fuerte
             else
-                cell->setOriginalColor(QColor(245, 202, 138));}//marron claro
+                cell->setOriginalColor(QColor(245, 202, 138));
+            }//marron claro
                 juego->aggregateToScene(cell);
         }
     }

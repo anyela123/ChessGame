@@ -1,4 +1,4 @@
-#include "Locker.h"
+#include "Cell.h"
 #include "juego.h"
 #include <memory>
 #include <QDebug>
@@ -10,12 +10,13 @@ extern Juego *juego;
 ChessCell::ChessCell(QString text,QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //dibujar la celda
-    setRect(0,0,100,100);
-    QPainter *painter=new QPainter();
+    setRect(0,0,100,100);//rectangulo
+                                                                                //QPainter *painter=new QPainter();
     brush.setStyle(Qt::SolidPattern);
     setZValue(-1);
     setHasChessPiece(false);
     setChessPieceColor("NONE");
+
     currentPiece = NULL;
 }
 
@@ -27,11 +28,11 @@ void ChessCell::setText(QString text){
     texto = new QGraphicsTextItem(text, this);
     int xPos = rect().width()/2 - texto->boundingRect().width()/2;
     int yPos = rect().height()/2 - texto->boundingRect().height()/2;
-    texto->setZValue(0.5);
-    texto->setDefaultTextColor(Qt::white);
-    texto->setFont(QFont("",20));
+    texto->setZValue(0.1);
+    texto->setDefaultTextColor(Qt::black);//color de indices a,b,cd ...
+    texto->setFont(QFont("",15));
     texto->setPos(xPos-10,20 );
-    texto->setDefaultTextColor(Qt::white);
+    texto->setDefaultTextColor(Qt::black);
 }
 void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -113,8 +114,6 @@ void ChessCell::resetOriginalColor()
 {
     setColor(originalColor);
 }
-
-
 //cambia el color originar
 void ChessCell::setOriginalColor(QColor value)
 {

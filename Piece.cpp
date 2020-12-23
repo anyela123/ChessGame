@@ -29,7 +29,7 @@ void Piece::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(!juego->pieceToMove){
 
         juego->pieceToMove = this;
-        juego->pieceToMove->getCurrentCell()->setColor(QColor(42,157,143));
+        juego->pieceToMove->getCurrentCell()->setColor(QColor(247,69,10)); // color posicion pieza
         juego->pieceToMove->move();
     }
     else if(this->getSide() != juego->pieceToMove->getSide()){
@@ -96,7 +96,7 @@ bool Piece::CellSetup(ChessCell *Cell)
             Cell->setColor(Qt::blue);
         }
         else
-            Cell->setColor(Qt::red);
+            Cell->setColor(Qt::yellow); // muestra cual comer
         return true;
     }
     else

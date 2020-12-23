@@ -24,38 +24,35 @@ Juego::Juego(QWidget *parent ):QGraphicsView(parent)
     setScene(chessScene);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(QColor(200,162,173));
+    brush.setColor(QColor(255,255,255));//fondo
     setBackgroundBrush(brush);
     pieceToMove = NULL;
 
 
     Turn= new  QGraphicsRectItem();
-    Turn->setRect(0,0,300,40);
+    Turn->setRect(650,700,50,50);
     Turn->setPos(width()/2,0);
     QBrush brush2;
+
     brush2.setStyle(Qt::SolidPattern);
-    brush2.setColor(QColor(255,255,255));
+    brush2.setColor(QColor(255,255,255));// Indicador de turno
+
     Turn->setBrush(brush2);
     // muestra el check (jaque) como aviso
     check = new QGraphicsTextItem();
-    check->setPos(65,chessScene->height()/2);
+    check->setPos(750,chessScene->height()/2);
     check->setZValue(4);
     check->setDefaultTextColor(Qt::red);
     check->setFont(QFont("",20));
-    check->setPlainText("CHECK, THERE IS A \n POSSIBLE \n CHECKMATE!!");
+    check->setPlainText("  POSIBLE \n HACKEMATE!!");
     check->setVisible(false);
     setTurn("WHITE");
 
      newItem=new QTableWidgetItem();
                  // para que los elementos no sean editables
      newItem->setFlags(newItem->flags() & (~Qt::ItemIsEditable));
-     newItem->setTextColor(Qt::blue); // color de los items
+     newItem->setTextColor(Qt::black); // color de los items
 
-     tableWidget = new QTableWidget(this);
-     tableWidget->setRowCount(50);
-     tableWidget->setColumnCount(4);
-     rowCount = tableWidget->rowCount();
-     colCount = tableWidget->columnCount();
 
 
 }
@@ -80,7 +77,7 @@ void Juego::displayDeadWhite()
                 k++;
                 j = 0;
             }
-            whiteDead[i]->setPos(40+SHIFT*j++,65+SHIFT*2*k);
+            whiteDead[i]->setPos(100+SHIFT*j++,65+SHIFT*2*k);
     }
 
 }
@@ -88,7 +85,7 @@ void Juego::displayDeadWhite()
 //dibuja el cuadro que contendra a las piezas negras muertas
 void Juego::displayDeadBlack()
 {
-    int SHIFT = 50;
+    int SHIFT = 40;
     int j = 0;
     int k = 0;
     for(size_t i = 0,n = blackDead.size(); i<n; i++) {
@@ -96,7 +93,7 @@ void Juego::displayDeadBlack()
             k++;
             j = 0;
         }
-        blackDead[i]->setPos(40+SHIFT*j++,500+SHIFT*2*k);
+        blackDead[i]->setPos(100+SHIFT*j++,500+SHIFT*2*k);
 
     }
 }
@@ -165,6 +162,7 @@ void Juego::changeTurn()
 {
     if(getTurn() =="WHITE"){
         setTurn("BLACK");
+        Turn->setRect(650,100,50,50);
         QBrush brush2;
         brush2.setStyle(Qt::SolidPattern);
         brush2.setColor(QColor(0,0,0));
@@ -172,6 +170,7 @@ void Juego::changeTurn()
     }
     else{
         setTurn("WHITE");
+        Turn->setRect(650,700,50,50);
         QBrush brush2;
         brush2.setStyle(Qt::SolidPattern);
         brush2.setColor(QColor(255,255,255));
@@ -190,20 +189,20 @@ void Juego::start()
     aggregateToScene(Turn);
     //lugar para las piezas blancas muertas
     QGraphicsTextItem* whitePiece = new QGraphicsTextItem();
-    whitePiece->setPos(65,10);
+    whitePiece->setPos(65,0);
     whitePiece->setZValue(1);
-    whitePiece->setDefaultTextColor(Qt::white);
-    whitePiece->setFont(QFont("",14));
-    whitePiece->setPlainText("PIEZAS BLANCAS CAPTURADAS");
+    whitePiece->setDefaultTextColor(Qt::black);
+    whitePiece->setFont(QFont("",12));
+    whitePiece->setPlainText("-----         Piezas blancas comidas");
     aggregateToScene(whitePiece);
 
     //lugar para las piezas blancas muertas
     QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
     blackPiece->setPos(65,chessScene->height()/2);
     blackPiece->setZValue(1);
-    blackPiece->setDefaultTextColor(Qt::white);
-    blackPiece->setFont(QFont("",14));
-    blackPiece->setPlainText("PIEZAS NEGRAS CAPTURADAS");
+    blackPiece->setDefaultTextColor(Qt::black);
+    blackPiece->setFont(QFont("",12));
+    blackPiece->setPlainText("-----         Piezas negras comidas");
     aggregateToScene(blackPiece);
     aggregateToScene(check);
     chess->addPieces();    
@@ -212,6 +211,7 @@ void Juego::start()
 }
 
 //dibujamos el frame que contendra los muertos
+
 void Juego::displayDeadsFrame(int x, int y)
 {
     deadHolder = new QGraphicsRectItem(x,y,30,90);
@@ -226,7 +226,7 @@ void Juego::displayDeadsFrame(int x, int y)
 void Juego::displayMainMenu()
 {
     //boton para jugar
-    Button * jugar = new Button("Comenzar");
+    Button * jugar = new Button("Inicio");
     uint16_t jXPos = 70;
     uint16_t jYPos = 350;
     jugar->setPos(jXPos,jYPos);
@@ -240,7 +240,7 @@ void Juego::displayMainMenu()
 
 //se ejecuta cuando alguno gane, reseteando el juego
 void Juego::gameOver(){
-    check->setPlainText("CHECK, THERE IS A \n POSSIBLE \n CHECKMATE!!");
+    check->setPlainText("POSIBLE \n HACKEMATE!!");
     check->setVisible(false);
     setTurn("WHITE");
     piecesInGame.clear();

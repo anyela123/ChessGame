@@ -32,7 +32,7 @@ private:
                             {"a2","b2","c2","d2","e2","f2","g2","h2"},
                             {"a1","b1","c1","d1","e1","f1","g1","h1"}};
     enum { NumLocker = 10 };
-     QString letters[8]={"A","B","C","D","E","F","G","H"};
+     QString letters[8]={"a","b","c","d","e","f","g","h"};
 };
 
 #endif // CHESSBOARD_H
