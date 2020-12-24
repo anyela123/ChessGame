@@ -21,21 +21,16 @@ Board::Board()
 //dibujando los cuadros
 void Board::initializeBoard(int x,int y)
 {
-    uint16_t sizeCell = 80;
-    QString darkStyle="Locker { font-weight: bold;font-size: 20px;background-color : "
-                              "darkslategray;color : white;  border: 1px solid black; }";
-    QString whiteStyle="Locker { font-weight: bold;font-size: 20px;background-color : white;color : white;"
-                               "  border: 1px solid black; }";
-
+    uint16_t sizeCell = 70;// tamaño celda
     int k=0,l=0;
     int m=8,n=8;
     for(uint16_t i = 0; i < NumLocker; i++) {
         for(uint16_t j = 0; j < NumLocker; j++)
-        {   ChessCell *cell = new ChessCell("");
+        {   ChessCell *cell = new ChessCell(""); //celda nueva
             juego->collection[i][j] = cell;
             cell->rowLoc = i;
             cell->colLoc = j;
-            cell->setPos(x+sizeCell*j,y+sizeCell*i);
+            cell->setPos(x+sizeCell*j,y+sizeCell*i); // va aumentado posicion  a ubicar
             if(i==0 || i==9 || j==0 || j==9){
                 cell->setOriginalColor(QColor(255, 255, 255));
                 if(i==0 && j==0|| i==9 && j==9 || i==9 && j==0 || i==0 && j==9)

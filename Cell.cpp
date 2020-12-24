@@ -10,7 +10,7 @@ extern Juego *juego;
 ChessCell::ChessCell(QString text,QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //dibujar la celda
-    setRect(0,0,100,100);//rectangulo
+    setRect(0,0,80,80);//rectangulo
                                                                                 //QPainter *painter=new QPainter();
     brush.setStyle(Qt::SolidPattern);
     setZValue(-1);
@@ -28,11 +28,11 @@ void ChessCell::setText(QString text){
     texto = new QGraphicsTextItem(text, this);
     int xPos = rect().width()/2 - texto->boundingRect().width()/2;
     int yPos = rect().height()/2 - texto->boundingRect().height()/2;
-    texto->setZValue(0.1);
+    texto->setZValue(0.1);//valor de celda... no forma parte del tablero de juego
     texto->setDefaultTextColor(Qt::black);//color de indices a,b,cd ...
-    texto->setFont(QFont("",15));
-    texto->setPos(xPos-10,20 );
-    texto->setDefaultTextColor(Qt::black);
+    texto->setFont(QFont("",12));
+    texto->setPos(xPos,20 );
+
 }
 void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
