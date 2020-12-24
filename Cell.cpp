@@ -7,7 +7,7 @@
 #include <QMessageBox>
 
 extern Juego *juego;
-ChessCell::ChessCell(QString text,QGraphicsItem *parent):QGraphicsRectItem(parent)
+Cell::Cell(QString text,QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //dibujar la celda
     setRect(0,0,80,80);//rectangulo
@@ -20,21 +20,21 @@ ChessCell::ChessCell(QString text,QGraphicsItem *parent):QGraphicsRectItem(paren
     currentPiece = NULL;
 }
 
-ChessCell::~ChessCell()
+Cell::~Cell()
 {
     delete this;
 }
-void ChessCell::setText(QString text){
+void Cell::setText(QString text){
     texto = new QGraphicsTextItem(text, this);
     int xPos = rect().width()/2 - texto->boundingRect().width()/2;
     int yPos = rect().height()/2 - texto->boundingRect().height()/2;
     texto->setZValue(0.1);//valor de celda... no forma parte del tablero de juego
     texto->setDefaultTextColor(Qt::black);//color de indices a,b,cd ...
     texto->setFont(QFont("",12));
-    texto->setPos(xPos,20 );
+    texto->setPos(xPos-10,20 );
 
 }
-void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
         if(currentPiece == juego->pieceToMove && currentPiece){
 
@@ -51,7 +51,7 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 return;}
 
             //eliminando si esta muerta esta pieza
-            QList <ChessCell *> movLoc = juego->pieceToMove->moveLocation();
+            QList <Cell *> movLoc = juego->pieceToMove->moveLocation();
 
             //chekea que esta en una de las celdas donde si se puede mover
             int check = 0;
@@ -94,14 +94,14 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }
 
 //cambia el color por uno que se le indique
-void ChessCell::setColor(QColor color)
+void Cell::setColor(QColor color)
 {
     brush.setColor(color);
     setBrush(color);
 }
 
 //se encarga de poner las piezas en un lugar deseado del pixman
-void ChessCell::placePiece(Piece *piece)
+void Cell::placePiece(Piece *piece)
 {
     piece->setPos(x()+40- piece->pixmap().width()/2  ,y()+40-piece->pixmap().width()/2);
     piece->setCurrentCell(this);
@@ -110,25 +110,25 @@ void ChessCell::placePiece(Piece *piece)
 }
 
 //resetea el color al original
-void ChessCell::resetOriginalColor()
+void Cell::resetOriginalColor()
 {
     setColor(originalColor);
 }
 //cambia el color originar
-void ChessCell::setOriginalColor(QColor value)
+void Cell::setOriginalColor(QColor value)
 {
     originalColor = value;
     setColor(originalColor);
 }
 
 //returna si es que tiene o no una pieza
-bool ChessCell::getHasChessPiece()
+bool Cell::getHasChessPiece()
 {
     return hasChessPiece;
 }
 
 //obtiene el valor del lugar de la pieza
-void ChessCell::setHasChessPiece(bool value, Piece *piece)
+void Cell::setHasChessPiece(bool value, Piece *piece)
 {
     hasChessPiece = value;
 
@@ -138,8 +138,8 @@ void ChessCell::setHasChessPiece(bool value, Piece *piece)
         setChessPieceColor("NONE");
 }
 
-//se encarga de checkear continuamente si hay algun jake mate
-void ChessCell::checkForCheck()
+//se encarga de ir checkeando continuamente si hay algun jake mate
+void Cell::checkForCheck()
 {
     int c = 0;
     int contrey=0;
@@ -151,10 +151,9 @@ void ChessCell::checkForCheck()
                 contrey++;
                 continue;
             }
-
             pList[i]->move();
             pList[i]->recolor();
-            QList <ChessCell *> bList = pList[i]->moveLocation();
+            QList <Cell *> bList = pList[i]->moveLocation();
             for(size_t j = 0,n = bList.size(); j < n; j ++) {
                 King * p = dynamic_cast<King *> (bList[j]->currentPiece);
                 if(p) {
@@ -196,18 +195,18 @@ void ChessCell::checkForCheck()
         if(contrey==1){
             if(QString::compare(juego->getTurn(),"WHITE")){
                 juego->check->setVisible(true);
-                juego->check->setPlainText("Black Won");
+                juego->check->setPlainText("¡¡Negro Ganó!!");
                 QMessageBox Msgbox;
-                Msgbox.setWindowTitle("Chess Winneer!!");
-                Msgbox.setText("Black won!!");
+                Msgbox.setWindowTitle("¡¡Ganador de Ajedrez!!");
+                Msgbox.setText("¡¡Negro Ganó!!");
                 Msgbox.exec();
             }
             else if(QString::compare(juego->getTurn(),"BLACK")){
                 juego->check->setVisible(true);
-                juego->check->setPlainText("White Won");
+                juego->check->setPlainText("¡¡Blanco Ganó!!");
                 QMessageBox Msgbox;
-                Msgbox.setWindowTitle("Chess Winneer!!");
-                Msgbox.setText("White won!!");
+                Msgbox.setWindowTitle("¡¡Ganador de Ajedrez!!");
+                Msgbox.setText("¡¡Blanco Ganó!!");
                 Msgbox.exec();
             }
             juego->gameOver();
@@ -219,14 +218,14 @@ void ChessCell::checkForCheck()
               }
         }
 
-//obtener el color de la pieza que se contiene
-QString ChessCell::getChessPieceColor()
+//obtener el color de la pieza
+QString Cell::getChessPieceColor()
 {
     return chessPieceColor;
 }
 
-//cambiazo el color de la pieza que se contiene
-void ChessCell::setChessPieceColor(QString value)
+//cambio de el color de la pieza
+void Cell::setChessPieceColor(QString value)
 {
     chessPieceColor = value;
 }

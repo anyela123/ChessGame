@@ -39,13 +39,13 @@ void Piece::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 }
 /*Cambia la celda actual en donde se encuentra el obj*/
-void Piece::setCurrentCell(ChessCell *Cell)
+void Piece::setCurrentCell(Cell *Cell)
 {
 
     currentCell = Cell;
 }
 /*Obtiene la celda actual en donde se encuentra el obj*/
-ChessCell *Piece::getCurrentCell()
+Cell *Piece::getCurrentCell()
 {
     return currentCell;
 }
@@ -74,7 +74,7 @@ void Piece::setMoved(bool value)
 }
 
 //retornamos la location en la que estamos
-QList<ChessCell *> Piece::moveLocation()
+QList<Cell *> Piece::moveLocation()
 {
     return location;
 }
@@ -88,7 +88,7 @@ void Piece::recolor()
 }
 
 
-bool Piece::CellSetup(ChessCell *Cell)
+bool Piece::CellSetup(Cell *Cell)
 {
     if(Cell->getHasChessPiece()) {
         King *q = dynamic_cast<King*>(location.last()->currentPiece);

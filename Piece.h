@@ -8,31 +8,31 @@ struct Move_piece{
    QString destiny;
    QString name=" ";
 };
-class ChessCell;
+class Cell;
 class Piece:public QGraphicsPixmapItem
 {
 public:
     Piece(QString team = "",QGraphicsItem *parent = 0);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void setCurrentCell(ChessCell *Cell);
-    ChessCell *getCurrentCell() ;
+    void setCurrentCell(Cell *Cell);
+    Cell *getCurrentCell() ;
     QString getSide() ;
     void setSide( QString value);
     virtual void setImage() = 0;
     bool getMoved() ;
     void setMoved(bool value);
-    QList <ChessCell *> moveLocation();
+    QList <Cell *> moveLocation();
     virtual void move() = 0;
     void recolor();
     bool firstMove;
-    bool CellSetup(ChessCell *Cell);
+    bool CellSetup(Cell *Cell);
     Move_piece control;
 protected:
-    ChessCell *currentCell;
+    Cell *currentCell;
     QString side;
     bool Moved;
-    QList <ChessCell *> location;
+    QList <Cell *> location;
     QString name;
 
 };

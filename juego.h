@@ -35,7 +35,7 @@ public:
 
 
     //coleccion de celdas
-    ChessCell *collection[10][10];
+    Cell *collection[10][10];
     QGraphicsTextItem *check;
     //verifica las piezas vivas
     QList <Piece *> piecesInGame;

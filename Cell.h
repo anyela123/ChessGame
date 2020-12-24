@@ -1,5 +1,5 @@
-#ifndef CHESSCELL_H
-#define CHESSCELL_H
+#ifndef Cell_H
+#define Cell_H
 #include <QGraphicsRectItem>
 #include <QBrush>
 #include <QGraphicsSceneMouseEvent>
@@ -7,14 +7,14 @@
 #include <QTextEdit>
 
 class Piece;
-class ChessCell: public QObject, public QGraphicsRectItem
+class Cell: public QObject, public QGraphicsRectItem
 {
 public:
 
     //Constructor
-    ChessCell(QString text="",QGraphicsItem *parent=0);
+    Cell(QString text="",QGraphicsItem *parent=0);
     //destructor
-    ~ChessCell();
+    ~Cell();
 
     //se presione esa celda
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -53,4 +53,4 @@ private:
     
 };
 
-#endif // CHESSCELL_H
+#endif // Cell_H

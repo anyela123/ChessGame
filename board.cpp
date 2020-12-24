@@ -26,7 +26,7 @@ void Board::initializeBoard(int x,int y)
     int m=8,n=8;
     for(uint16_t i = 0; i < NumLocker; i++) {
         for(uint16_t j = 0; j < NumLocker; j++)
-        {   ChessCell *cell = new ChessCell(""); //celda nueva
+        {   Cell *cell = new Cell(""); //celda nueva
             juego->collection[i][j] = cell;
             cell->rowLoc = i;
             cell->colLoc = j;
@@ -77,7 +77,7 @@ void Board::addPieces() {
         for(uint16_t j = 1; j < 9; j++)
         {
 
-            ChessCell *cell =juego->collection[i][j];
+            Cell *cell =juego->collection[i][j];
             if(i < 3 ) {
                 static uint16_t k;
                 cell->placePiece(blackPieces[k]);
@@ -158,7 +158,7 @@ void Board::reset() {
             for(int j = 1; j < 9; j++)
             {
 
-                ChessCell *box =juego->collection[i][j];
+                Cell *box =juego->collection[i][j];
                 box->setHasChessPiece(false);
                 box->setChessPieceColor("NONE");
                 box->currentPiece = NULL;

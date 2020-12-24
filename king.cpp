@@ -96,7 +96,7 @@ void King::findUnSafeLocation() {
 
         if(pList[i]->getSide() != this->getSide())
         {
-            QList <ChessCell *> bList = pList[i]->moveLocation();
+            QList <Cell *> bList = pList[i]->moveLocation();
 
             for(size_t j = 0, n = bList.size(); j < n; j++) {
                 Pawn *c = dynamic_cast<Pawn *> (pList[i]) ;
